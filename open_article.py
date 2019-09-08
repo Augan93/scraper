@@ -4,6 +4,7 @@ from parse_body import parse_body
 from settings import root_url
 from requests_retry import requests_retry_session
 from parse_comments import parse_comments
+from download_image import download_image
 
 
 def open_article(href):
@@ -36,10 +37,11 @@ def open_article(href):
     if p_description:
         description = p_description.text  # Описание статьи
 
-    main_pic_url = ''
+    img_path = ''
     img = article_block.find("img", {"class": "main_pic"})  # Главная картинка статьи
     if img:
         main_pic_url = img.attrs['src']
+        img_path = download_image(main_pic_url)  # скачаем картинку и получаем путь к сохраненной картинке
 
     raw_body = article_block.find("div", {"id": "initial_news_story"})  # Тело статьи
 
@@ -47,7 +49,8 @@ def open_article(href):
 
     article_text = ''
     article_text += description
-    article_text += '<img src="{}">'.format(main_pic_url)
+    if img_path:
+        article_text += '<img src="{}">'.format(img_path)
     article_text += parsed_body
 
     return header, article_text, comment_count

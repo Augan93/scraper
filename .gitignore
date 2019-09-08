@@ -1,4 +1,5 @@
 test_retry.py
 venv/*
 csv_write_test.py
-idea/*
+.idea/*
+

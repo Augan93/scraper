@@ -7,6 +7,6 @@ root_url = "https://www.zakon.kz/"
 news_url = "https://www.zakon.kz/news/"
 
 
-images_dir = '{}/{}'.format(BASE_DIR, 'images/')
+images_dir = os.path.join(BASE_DIR, 'images/')
 
 

@@ -22,7 +22,10 @@ def create_dir():
 def download_image(url):
     """Скачает картинку в папку images и возвращает путь к сохраненной картинке"""
 
-    img_url = 'http:' + url
+    if url.startswith('//'):
+        img_url = 'https:' + url
+    else:
+        img_url = url
 
     try:
         response = requests_retry_session().get(img_url)
@@ -45,6 +48,6 @@ def download_image(url):
     return path
 
 
-# download_image('//static.zakon.kz/uploads/posts/2019-09/1567920535_2.jpeg')
+download_image('//static.zakon.kz/uploads/posts/2019-09/thumbs/1567920535_2.jpeg')
 
 # dir_name = create_dir()

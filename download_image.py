@@ -48,6 +48,6 @@ def download_image(url):
     return path
 
 
-download_image('//static.zakon.kz/uploads/posts/2019-09/thumbs/1567920535_2.jpeg')
+# download_image('//static.zakon.kz/uploads/posts/2019-09/thumbs/1567920535_2.jpeg')
 
 # dir_name = create_dir()

@@ -1,18 +1,18 @@
 from bs4 import BeautifulSoup, Tag
 from csv_writer import csv_write
 from open_article import open_article
-from requests_retry import requests_retry_session
+from requests_retry import requests_retry_session, request_retry
 from settings import news_url
+from get_proxy import request_retry_proxy
 
 
 def scrap_site(url):
     """Entry point"""
 
-    try:
-        print('Try')
-        page = requests_retry_session().get(url)
-    except Exception as x:
-        print('It failed: ', x.__class__.__name__)
+    # page = request_retry(url)
+    page = request_retry_proxy(url)
+
+    if page is None:
         return
 
     soup = BeautifulSoup(page.text,

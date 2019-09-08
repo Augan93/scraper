@@ -1,8 +1,9 @@
 from uuid import uuid4
 from settings import images_dir
-from requests_retry import requests_retry_session
+from requests_retry import requests_retry_session, request_retry
 import os
 from datetime import date
+from get_proxy import request_retry_proxy
 
 
 def create_dir():
@@ -27,10 +28,10 @@ def download_image(url):
     else:
         img_url = url
 
-    try:
-        response = requests_retry_session().get(img_url)
-    except Exception as x:
-        print('It failed: ', x.__class__.__name__)
+    # response = request_retry(img_url)
+    response = request_retry_proxy(img_url)
+
+    if response is None:
         return
 
     image_extension = img_url.split('.')[-1]
@@ -47,7 +48,3 @@ def download_image(url):
 
     return path
 
-
-# download_image('//static.zakon.kz/uploads/posts/2019-09/thumbs/1567920535_2.jpeg')
-
-# dir_name = create_dir()

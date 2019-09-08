@@ -2,20 +2,21 @@ import requests
 from bs4 import BeautifulSoup
 from parse_body import parse_body
 from settings import root_url
-from requests_retry import requests_retry_session
+from requests_retry import requests_retry_session, request_retry
 from parse_comments import parse_comments
 from download_image import download_image
+from get_proxy import request_retry_proxy
 
 
 def open_article(href):
     """Открываем страницу статьи"""
 
-    try:
-        print('Try')
-        news_page = requests_retry_session().get(root_url + href)
-    except Exception as x:
-        print('It failed: ', x.__class__.__name__)
-        return
+    url = root_url + href
+    # news_page = request_retry(url)
+    news_page = request_retry_proxy(url)
+
+    if news_page is None:
+        return None, None, None
 
     soup = BeautifulSoup(news_page.text,
                          features='lxml')

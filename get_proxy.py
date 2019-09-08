@@ -29,7 +29,7 @@ def request_retry_proxy(url):
         if page.status_code == 200:
             return page
         else:
-            raise Exception
+            raise Exception()
 
     except Exception as x:
         print('It failed. Try with proxies ', x.__class__.__name__)
@@ -44,6 +44,7 @@ def request_retry_proxy(url):
             try:
                 page = requests_retry_session().get(url,
                                                     proxies={"http": proxy, "https": proxy})
+                print(page.status_code)
                 if page.status_code == 200:
                     return page
 

@@ -24,6 +24,8 @@ def open_article(href):
     content = soup.find("div", {"id": "dle-content"})
 
     article_block = content.find("div", {"class": "fullnews white_block"})
+    if article_block is None:
+        return None, None, None
 
     comments_block = content.find("div", {"id": "zkn_comments"})
     comment_count = parse_comments(comments_block)  # Парсим блок комментариев

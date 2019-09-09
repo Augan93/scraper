@@ -39,7 +39,8 @@ def scrap_site(url):
 
         a = div.find('a')  # Ищем тэг а и берем значение атрибута href
         if type(a) is Tag:
-            # title = a.text  # Заголовок статьи
+            title = a.text  # Заголовок статьи
+            print(title)
             href = a.attrs['href']  # Ссылка на статью
             article_title, article_text, comment_count = open_article(href)  # Вызываем функцию open_article
 
